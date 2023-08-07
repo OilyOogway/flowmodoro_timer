@@ -3,18 +3,44 @@
 body {
   width: 400px;
   height: auto;
+  border-radius: 15px; /* Add rounded edges */
+  padding: 20px; /* Add some padding to create space around the content */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
+  overflow: hidden; /* Prevent animation overflow */
+  background-image: linear-gradient(
+    90deg,
+    #91e5f6 25%,
+    #84d2f6 50%,
+    #59a5d8 75%
+  );
+  background-size: 200% 100%;
+  transition: background-position 0.5s; /* Smooth transition for parallax effect */
 }
+
+#timer {
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  color: #023e8a;
+}
+
+/* body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+
+} */
 
 h1 {
   font-family: "Borel", cursive;
-  color: blue;
+  color: #023e8a;
   text-align: center;
 }
 
 /* Button styles */
 button {
-  background-color: #add8e6; /* Baby blue color */
-  color: white;
+  background-color: #e3d5ca; /* Baby blue color */
+  color: #023e8a;
   padding: 10px 20px;
   border: none;
   border-radius: 20px; /* Make the buttons rounder */
@@ -23,7 +49,7 @@ button {
 }
 
 button:hover {
-  background-color: #87ceeb; /* Slightly darker blue on hover */
+  background-color: #d6ccc2; /* Slightly darker blue on hover */
 }
 
 /* popup.css */
@@ -35,4 +61,8 @@ button:hover {
   align-items: center; /* Center vertically */
   gap: 10px; /* Add some space between buttons */
   margin-top: 20px; /* Add some spacing from the previous elements */
+}
+
+body:hover {
+  background-position: 100% 0; /* Move background to create parallax effect */
 }
