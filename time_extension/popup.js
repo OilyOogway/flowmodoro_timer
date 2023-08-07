@@ -62,6 +62,9 @@ breakBtn.addEventListener("click", () => {
           breakCountdown--;
         //   breakTimerElement.style.display = "block"; // Show the break countdown element
           timerElement.textContent = `Break Time: ${formatTime(breakCountdown)}`;
+          chrome.action.setBadgeText({
+            text: `${formatTime(breakCountdown)}`,
+          });
         } else {
           clearInterval(breakInterval);
           timerElement.textContent = "Break is over!";
