@@ -72,6 +72,14 @@ breakBtn.addEventListener("click", () => {
             timer: 0,
             isRunning: false,
           });
+          if (breakCountdown === 0) {
+            chrome.notifications.create("breakOverNotification", {
+              type: "basic",
+              iconUrl: "Flowmodoro.png",
+              title: "Break Over",
+              message: "Your break time is over!",
+            });
+          }
   
           isBreakCountdownActive = false; // Set the flag to false
           startMainInterval(); // Restart the main timer interval

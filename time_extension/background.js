@@ -26,14 +26,14 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     chrome.action.setBadgeText({
       text: `${formatTime(time + 1)}`,
     });
-    // chrome.storage.sync.get(["notificationTime"], (res) => {
-    //   const notificationTime = res.notificationTime ?? 1000;
-    //   if (time % notificationTime == 0) {
-    //     this.registration.showNotification("Flowmodoro Timer", {
-    //       body: `You have been focused for ${notificationTime} seconds!`,
-    //       icon: "koi_timer.png",
-    //     });
-    //   }
-    // });
+
   });
 });
+
+// chrome.alarms.onAlarm.addListener((alarm) => { if (alarm.name ===
+//     "breakOverAlarm") { chrome.notifications.create("breakOverNotification",
+//     { type: "basic", iconUrl: "Flowmodoro.png", title: "Flowmodoro Timer",
+//     message: "Break Over!",
+//       });
+//     }
+//   });

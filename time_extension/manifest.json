@@ -1,20 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Timer Extension",
+  "name": "Flowmodoro Timer",
   "version": "1.0.0",
-  "description": "Hello Chrome World!",
+  "description": "Minimalistic flowmodoro timer",
   "icons": {
-    "16": "koi_timer.png",
-    "48": "koi_timer.png",
-    "128": "koi_timer.png"
+    "16": "Flowmodoro.png",
+    "48": "Flowmodoro.png",
+    "128": "Flowmodoro.png"
   },
   "action": {
     "defautl_icon": {
-      "16": "koi_timer.png",
-      "48": "koi_timer.png",
-      "128": "koi_timer.png"
+      "16": "Flowmodoro.png",
+      "48": "Flowmodoro.png",
+      "128": "Flowmodoro.png"
     },
-    "default_title": "Timer Extension Action Title",
+    "default_title": "Flowmodoro",
     "default_popup": "popup.html"
   },
   "options_page": "options.html",
