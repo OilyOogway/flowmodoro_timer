@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
+
+body {
+  width: 400px;
+  height: auto;
+}
+
+h1 {
+  font-family: "Borel", cursive;
+  color: blue;
+  text-align: center;
+}
+
+/* Button styles */
+button {
+  background-color: #add8e6; /* Baby blue color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px; /* Make the buttons rounder */
+  margin: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #87ceeb; /* Slightly darker blue on hover */
+}
+
+/* popup.css */
+
+/* Add this style at the end of your CSS file */
+.button-container {
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 10px; /* Add some space between buttons */
+  margin-top: 20px; /* Add some spacing from the previous elements */
+}
