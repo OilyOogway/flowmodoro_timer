@@ -18,7 +18,7 @@ Compile/run:
 -----------
 
 
-   Compile and Run using the command "unit_test"
+   Clone and run by loading into chrome://extensions
 
 
 

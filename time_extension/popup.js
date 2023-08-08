@@ -1,6 +1,6 @@
 //grabs the h2 elements in the popup.html
-const timeElement = document.getElementById("time");
-const nameElement = document.getElementById("name");
+//const timeElement = document.getElementById("time");
+//const nameElement = document.getElementById("name");
 const timerElement = document.getElementById("timer");
 
 const startStopBtn = document.getElementById("start-stop");
@@ -38,56 +38,41 @@ function startMainInterval() {
 
 startMainInterval();
 
-// updateTimeElements();
-// setInterval(updateTimeElements, 1000);
+// This code should go in your popup script (popup.js)
 
+// const timerElement = document.getElementById("timer");
+// const breakBtn = document.getElementById("break");
+
+// Attach event listener to the "Break" button
 breakBtn.addEventListener("click", () => {
-    chrome.storage.local.set({
-      isRunning: false,
-    });
-  
-    clearInterval(interval); // Clear the main timer interval
-  
-    // Grab the current time from the timer and divide it by 5
     chrome.storage.local.get(["timer"], (res) => {
-      const currentTime = res.timer ?? 0;
-      const breakTime = Math.floor(currentTime / 5);
-  
-      // Set the break countdown time
-      breakCountdown = breakTime;
-      isBreakCountdownActive = true; // Set the flag to true
-  
-      breakInterval = setInterval(() => {
-        if (breakCountdown > 0) {
-          breakCountdown--;
-        //   breakTimerElement.style.display = "block"; // Show the break countdown element
-          timerElement.textContent = `Break Time: ${formatTime(breakCountdown)}`;
-          chrome.action.setBadgeText({
-            text: `${formatTime(breakCountdown)}`,
-          });
-        } else {
-          clearInterval(breakInterval);
-          timerElement.textContent = "Break is over!";
-          chrome.storage.local.set({
-            timer: 0,
-            isRunning: false,
-          });
-          if (breakCountdown === 0) {
-            chrome.notifications.create("breakOverNotification", {
-              type: "basic",
-              iconUrl: "Flowmodoro.png",
-              title: "Break Over",
-              message: "Your break time is over!",
-            });
-          }
-  
-          isBreakCountdownActive = false; // Set the flag to false
-          startMainInterval(); // Restart the main timer interval
-        }
-      }, 1000);
-    });
-  });
+        const currentTime = res.timer ?? 0;
+        const breakCountdownValue = Math.floor(currentTime / 5); // Calculate the break countdown value
 
+        // Save the break countdown value in storage
+        chrome.storage.local.set({
+            breakCountdown: breakCountdownValue,
+        });
+
+        // Trigger the startBreakCountdown function with the calculated value
+        chrome.runtime.sendMessage({ action: "startBreakCountdown", breakCountdownValue });
+    });
+});
+
+// Listen for messages from the background script to update the timer display
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//     if (message.action === "updateTimerDisplay") {
+//         timerElement.textContent = `Break Time: ${formatTime(message.time)}`;
+//     }
+// });
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "startBreakCountdown") {
+        const breakCountdownValue = message.breakCountdownValue;
+        startBreakCountdown(breakCountdownValue);
+    }
+});
 
 startStopBtn.addEventListener("click", () => {
   chrome.storage.local.get(["isRunning"], (res) => {
@@ -115,38 +100,54 @@ resetBtn.addEventListener("click", () => {
   });
 });
 
-let countdownInterval;
-let breakCountdown; // Add a variable to track the countdown time
-
-// Event listener for the "Break" button
 // breakBtn.addEventListener("click", () => {
-//   chrome.storage.local.set({
-//     isRunning: false,
-//   });
-
-//   //clearInterval(countdownInterval); // Clear the ongoing timer interval
-
-//   // Grab the current time from the timer and divide it by 5
-//   chrome.storage.local.get(["timer"], (res) => {
-//     const currentTime = res.timer ?? 0;
-//     const breakTime = Math.floor(currentTime / 5);
-
-//     // Set the break countdown time
-//     breakCountdown = breakTime;
-
-//     // Start counting down the break time
-//     countdownInterval = setInterval(() => {
-//       if (breakCountdown > 0) {
-//         breakCountdown--;
-//         timerElement.textContent = `Break Time: ${formatTime(breakCountdown)}`;
-//       } else {
-//         clearInterval(countdownInterval);
-//         timerElement.textContent = "Break is over!";
-//         chrome.storage.local.set({
-//           timer: 0,
-//           isRunning: false,
+//     chrome.storage.local.set({
+//       isRunning: false,
+//     });
+    
+//     clearInterval(interval); // Clear the main timer interval
+  
+//     // Grab the current time from the timer and divide it by 5
+//     chrome.storage.local.get(["timer"], (res) => {
+//       const currentTime = res.timer ?? 0;
+//       const breakTime = Math.floor(currentTime / 5);
+  
+//       // Set the break countdown time
+//       breakCountdown = breakTime;
+//       //isBreakCountdownActive = true; // Set the flag to true
+//       chrome.storage.local.set({
+//         isBreakRunning: true,
+//     });
+  
+//       breakInterval = setInterval(() => {
+//         if (breakCountdown > 0) {
+//           breakCountdown--;
+//           timerElement.textContent = `Break Time: ${formatTime(breakCountdown)}`;
+//           chrome.action.setBadgeText({
+//             text: `${formatTime(breakCountdown)}`,
+//           });
+//         } else {
+//           clearInterval(breakInterval);
+//           timerElement.textContent = "Break is over!";
+//           chrome.storage.local.set({
+//             timer: 0,
+//             isRunning: false,
+//           });
+//           if (breakCountdown === 0) {
+//             chrome.notifications.create("breakOverNotification", {
+//               type: "basic",
+//               iconUrl: "Flowmodoro.png",
+//               title: "Break Over",
+//               message: "Your break time is over!",
+//             });
+//           }
+  
+//           //isBreakCountdownActive = false; // Set the flag to false
+//             chrome.storage.local.set({
+//             isBreakRunning: true,
 //         });
-//       }
-//     }, 1000);
+//           startMainInterval(); // Restart the main timer interval
+//         }
+//       }, 1000);
+//     });
 //   });
-// });

@@ -1,25 +1,26 @@
 {
-  "manifest_version": 3,
-  "name": "Flowmodoro Timer",
-  "version": "1.0.0",
-  "description": "Minimalistic flowmodoro timer",
-  "icons": {
-    "16": "Flowmodoro.png",
-    "48": "Flowmodoro.png",
-    "128": "Flowmodoro.png"
-  },
-  "action": {
-    "defautl_icon": {
+    "manifest_version": 3,
+    "name": "Flowmodoro Timer",
+    "version": "1.0.0",
+    "description": "Minimalistic flowmodoro timer",
+    "icons": {
       "16": "Flowmodoro.png",
       "48": "Flowmodoro.png",
       "128": "Flowmodoro.png"
     },
-    "default_title": "Flowmodoro",
-    "default_popup": "popup.html"
-  },
-  "options_page": "options.html",
-  "permissions": ["storage", "alarms", "notifications"],
-  "background": {
-    "service_worker": "background.js"
+    "action": {
+      "default_icon": {
+        "16": "Flowmodoro.png",
+        "48": "Flowmodoro.png",
+        "128": "Flowmodoro.png"
+      },
+      "default_title": "Flowmodoro",
+      "default_popup": "popup.html"
+    },
+    "options_page": "options.html",
+    "permissions": ["storage", "alarms", "notifications"],
+    "background": {
+      "service_worker": "background.js"
+    }
   }
-}
+  
