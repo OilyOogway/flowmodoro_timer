@@ -111,7 +111,7 @@ function startBreakCountdown(breakCountdownValue) {
             breakCountdown--;
 
             // Update the timer display in the popup
-            chrome.runtime.sendMessage({ action: "updateTimerDisplay", time: breakCountdown });
+            chrome.runtime.sendMessage({ action: "updateBreakCountdownDisplay", countdown: breakCountdown });
 
             // Update badge text
             chrome.action.setBadgeText({ text: `${formatTime(breakCountdown)}` });

@@ -1,6 +1,4 @@
-//grabs the h2 elements in the popup.html
-//const timeElement = document.getElementById("time");
-//const nameElement = document.getElementById("name");
+
 const timerElement = document.getElementById("timer");
 
 const startStopBtn = document.getElementById("start-stop");
@@ -37,14 +35,13 @@ function startMainInterval() {
 }
 
 startMainInterval();
-
-// This code should go in your popup script (popup.js)
-
-// const timerElement = document.getElementById("timer");
-// const breakBtn = document.getElementById("break");
+// function decrementInterval(){
+//     breakInterval = setInterval(updateTimeElements,1000);
+// }
 
 // Attach event listener to the "Break" button
 breakBtn.addEventListener("click", () => {
+    clearInterval(interval);
     chrome.storage.local.get(["timer"], (res) => {
         const currentTime = res.timer ?? 0;
         const breakCountdownValue = Math.floor(currentTime / 5); // Calculate the break countdown value
@@ -53,16 +50,39 @@ breakBtn.addEventListener("click", () => {
         chrome.storage.local.set({
             breakCountdown: breakCountdownValue,
         });
-
+        chrome.storage.local.set({
+            isRunning: false,
+        });
+        // chrome.storage.local.set({
+        //     breakRunning:true,
+        // })
+        
         // Trigger the startBreakCountdown function with the calculated value
         chrome.runtime.sendMessage({ action: "startBreakCountdown", breakCountdownValue });
+        //startMainInterval();
     });
 });
+
+// Listen for messages from the background script
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "updateBreakCountdownDisplay") {
+        const countdown = message.countdown;
+        const formattedCountdown = formatTime(countdown); // Format the countdown value
+        timerElement.textContent = `Break Time: ${formattedCountdown}`;
+    }
+});
+
 
 // Listen for messages from the background script to update the timer display
 // chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 //     if (message.action === "updateTimerDisplay") {
 //         timerElement.textContent = `Break Time: ${formatTime(message.time)}`;
+//     }
+// });
+
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//     if (message.action === "updateTimerDisplay") {
+//         timerElement.textContent = `Break Time: ${formatTime(message.countdown)}`;
 //     }
 // });
 
